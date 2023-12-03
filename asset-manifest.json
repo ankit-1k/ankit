@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ankit/static/css/main.2144c7d2.css",
+    "main.js": "/ankit/static/js/main.7c7b944d.js",
+    "static/media/r.pdf": "/ankit/static/media/r.11237c81f74fd18a7c1f.pdf",
+    "static/media/logo.png": "/ankit/static/media/logo.46069f907df182bd284a.png",
+    "index.html": "/ankit/index.html",
+    "main.2144c7d2.css.map": "/ankit/static/css/main.2144c7d2.css.map",
+    "main.7c7b944d.js.map": "/ankit/static/js/main.7c7b944d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2144c7d2.css",
+    "static/js/main.7c7b944d.js"
+  ]
+}
