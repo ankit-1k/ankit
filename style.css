@@ -22,6 +22,23 @@ nav ul li:hover {
   position: relative;
   display: inline-block;
 }
+.nav-item {
+  position: relative;
+}
+.hr{
+  background-color: red;
+  width: 0px;
+  transition: 0.5s;
+  height: 2px;
+}
+.hr:hover{
+  width: 20px;
+}
+.nav-item:hover .hr {
+  width: 100%;
+}
+
+
 
 .hover-title:hover::before {
   content: attr(title);
@@ -110,7 +127,9 @@ tr td {
 }
 
 .wrapper-banner {
-  background-image: url('https://cutewallpaper.org/21/gif-background-hd/Space-Stars-Black-Background-Gif-1920x1080-.gif');
+  /* background-color: black; */
+  /* background-image: url('https://wallpapercave.com/wp/wp2864012.gif'); */
+  background-image: url('./img/banner.gif');
   height: 500px;
   background-size: cover;
   background-position: center center;
@@ -374,7 +393,8 @@ tr td {
 }
 /*  */
 .flame {
-  background-image: url('https://th.bing.com/th/id/R.f323391cd01065efc3b9e2c756371566?rik=pnK1seOo7Moufg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f2%2f22%2fAnimated_fire_by_nevit.gif&ehk=%2fGqupj0TY0nEha3aVBs%2fA0Iv5UIAttwazxHjXiPrGVg%3d&risl=1&pid=ImgRaw&r=0');
+  /* background-image: url('https://th.bing.com/th/id/R.f323391cd01065efc3b9e2c756371566?rik=pnK1seOo7Moufg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f2%2f22%2fAnimated_fire_by_nevit.gif&ehk=%2fGqupj0TY0nEha3aVBs%2fA0Iv5UIAttwazxHjXiPrGVg%3d&risl=1&pid=ImgRaw&r=0'); */
+  background-image: url('./img/start_bluefiregif.gif');
   filter: brightness(70%);
   background-position: center center;
   background-size: cover;

@@ -9,8 +9,11 @@ import logo from './img/logo.png';
 import AOS from 'aos';// aos
 import 'aos/dist/aos.css';
 import { useTts } from 'react-tts'; //speek
+import 'bootstrap/dist/css/bootstrap.min.css'
 const Speech = () => {
   const { speak } = useTts();
+  // update 2.0
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const refreshPage = () => {
     window.location.reload();
@@ -33,7 +36,7 @@ const Speech = () => {
         y: [],
         type: "bar",
         marker: {
-          color: 'white', 
+          color: 'white',
         },
       }
     ]
@@ -224,7 +227,7 @@ const Speech = () => {
       }
     },
     {
-      command: ['top', 'top scroll', 'scroll top','scroll up'],
+      command: ['top', 'top scroll', 'scroll top', 'scroll up'],
       callback: () => {
         window.scroll({
           top: 0,
@@ -245,11 +248,11 @@ const Speech = () => {
     {
       command: ['esc', 'exit'],
       callback: () => {
-        BotClose()  
+        BotClose()
       }
     },
     {
-      command: ['download', 'resume download','download resume'],
+      command: ['download', 'resume download', 'download resume'],
       callback: () => {
         downloadPDF()
         const utterance = new SpeechSynthesisUtterance('resume downloading, please check download section');
@@ -260,6 +263,23 @@ const Speech = () => {
       command: ['start', 'open', 'bot', 'but', `let's chat`],
       callback: () => {
         BotFire()
+      }
+    },
+    {
+      command: ['voice command', 'command', 'what is this', 'voice', `active voice command`],
+      callback: () => {
+        BotFire()
+        const utterance = new SpeechSynthesisUtterance('Voice command activated');
+        speak(utterance);
+      }
+    },
+    {
+      command: ['Start auto mode', 'auto mode', 'automode', 'press start', `enable auto run`, 'activate auto mode'],
+      callback: () => {
+        AutoAction()
+        const utterance = new SpeechSynthesisUtterance('Voice command activated');
+        speak(utterance);
+        BotClose()
       }
     },
     {
@@ -414,6 +434,12 @@ const Speech = () => {
       element.click();
     }
   }
+  function AutoModal() {
+    var element = document.querySelector('[data-bs-target="#auto-modal"]');
+    if (element) {
+      element.click();
+    }
+  }
   // Instruction Open
   function InstructionFire() {
     var element = document.querySelector('[data-bs-target="#modal-ins"]');
@@ -432,18 +458,26 @@ const Speech = () => {
   function FireWork() {
     const element = document.getElementById('work');
     element.scrollIntoView({ behavior: 'smooth' });
+    const utterance = new SpeechSynthesisUtterance('These are my some works and i am currently working on skill technologies.');
+    speak(utterance);
   }
   function FireAbout() {
     const element = document.getElementById('about');
     element.scrollIntoView({ behavior: 'smooth' });
+    const utterance = new SpeechSynthesisUtterance('This is my about section please check');
+    speak(utterance);
   }
   function FireSkill() {
     const element = document.getElementById('skill');
     element.scrollIntoView({ behavior: 'smooth' });
+    const utterance = new SpeechSynthesisUtterance('These are my skills');
+    speak(utterance);
   }
   function FireResume() {
     const element = document.getElementById('resume');
     element.scrollIntoView({ behavior: 'smooth' });
+    const utterance = new SpeechSynthesisUtterance('These are my Qualification');
+    speak(utterance);
   }
 
   // fireing work cards
@@ -530,6 +564,54 @@ const Speech = () => {
     link.click();
     document.body.removeChild(link);
   };
+  // update 2.0 date 05-03-2024
+  const showMessage = () => {
+    setTimeout(() => {
+      AutoModal()
+    }, 1000);
+  }; showMessage()
+  // targeting work
+  const autoWork = () => {
+    setTimeout(() => {
+      FireWork()
+    }, 1000);
+  };
+  const autoAbout = () => {
+    setTimeout(() => {
+      FireAbout()
+    }, 7000);
+  };
+  const autoSkill = () => {
+    setTimeout(() => {
+      FireSkill()
+    }, 9000);
+  };
+  const autoResume = () => {
+    setTimeout(() => {
+      FireResume()
+    }, 12000);
+  };
+  const autoBot = () => {
+    setTimeout(() => {
+      BotFire()
+      const utterance = new SpeechSynthesisUtterance('Hello i am watcher. How can i help you');
+      speak(utterance);
+      listenContinuously()
+    }, 15000);
+  };
+
+  const AutoAction = () => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 10000);
+    autoWork()
+    autoAbout()
+    autoSkill()
+    autoResume()
+    autoBot()
+  }
+  // AutoAction()
   return (
     <div>
       <main className={`main-container`}>
@@ -544,21 +626,25 @@ const Speech = () => {
                 <ul className="navbar-nav" style={{ marginLeft: "auto" }}>
                   <li className="nav-item" data-aos="zoom-in-down">
                     <a className="nav-link" style={{ color: "#00b4d8" }} href="#work" onClick={FireWork}>Works</a>
+                    <div className="hr"></div>
                   </li>
                   <li className="nav-item" data-aos="zoom-in-down">
                     <a className="nav-link" style={{ color: "#00b4d8" }} aria-current="page" href="#about">About</a>
+                    <div className="hr"></div>
                   </li>
                   <li className="nav-item" data-aos="zoom-in-down">
                     <a className="nav-link" style={{ color: "#00b4d8" }} href="#resume">Resume</a>
+                    <div className="hr"></div>
                   </li>
                   <li className="nav-item" data-aos="zoom-in-down">
                     <a type="button" className="nav-link" style={{ color: "#00b4d8" }} data-bs-toggle="modal" data-bs-target="#modal-ins">
                       Instruction
                     </a>
+                    <div className="hr"></div>
                   </li>
                   <li className="nav-item" data-aos="zoom-in-down">
                     <a className="nav-link text-info">
-                      <button className='flame' onClick={listenContinuously}>
+                      <button className='flame' onClick={AutoAction} disabled={isDisabled}>
                         start
                       </button>
                     </a>
@@ -570,8 +656,7 @@ const Speech = () => {
         </section>
         <section className='banner'>
           <div className="wrapper-banner">
-            <div className="sec-b-1" data-aos="fade-up"
-              data-aos-anchor-placement="top-center">
+            <div className="sec-b-1">
               <Typed />
             </div>
           </div>
@@ -803,9 +888,7 @@ const Speech = () => {
       </main>
       {/* bot-section */}
       <section className="bot">
-        <button data-aos="flip-left"
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000" type="button" className="btn btn-info custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={BotFire}>
+        <button type="button" className="btn btn-info custom-button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={BotFire}>
           <div className="bot-logo">
             <img src="https://www.bacancytechnology.com/blog/wp-content/uploads/2019/08/ezgif.com-optimize-5.gif" height={50} width={50} alt="Start chat" />
           </div>
@@ -834,11 +917,11 @@ const Speech = () => {
                       </div>
                       <div className='msg'>
                         <h4>Watcher
-                        <span>
-                        {listening ? <svg className='online' xmlns="http://www.w3.org/2000/svg" height="10" width="10" viewBox="0 0 512 512"><path fill="#00ff33" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg> : (
-                          <svg className='online' xmlns="http://www.w3.org/2000/svg" height="10" width="10" viewBox="0 0 512 512"><path fill="#a0a1a2" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
-                        )}
-                      </span>
+                          <span>
+                            {listening ? <svg className='online' xmlns="http://www.w3.org/2000/svg" height="10" width="10" viewBox="0 0 512 512"><path fill="#00ff33" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" /></svg> : (
+                              <svg className='online' xmlns="http://www.w3.org/2000/svg" height="10" width="10" viewBox="0 0 512 512"><path fill="#a0a1a2" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" /></svg>
+                            )}
+                          </span>
                         </h4>
                         {
                           message
@@ -848,10 +931,10 @@ const Speech = () => {
                   </div>
                   <div className='d-flex justify-content-start'>
                     <button className='start' type="button" onClick={listenContinuously}>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path fill="#2b00ff" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path fill="#2b00ff" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" /></svg>
                     </button>
                     <button className='close' type="button" onClick={SpeechRecognition.stopListening}>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path fill="#751710" d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path fill="#751710" d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z" /></svg>
                     </button>
                   </div>
                 </section>
@@ -873,7 +956,7 @@ const Speech = () => {
                 <h5 className="text-info text-center">Voice Command Action</h5>
               </section>
               <section className="text-danger">
-              Click 'Start', grant microphone access, and say 'Hello' or follow provided instructions to navigate our voice-controlled website. Ensure precise commands, as incorrect inputs may lead to unexpected results. Speak confidently for a seamless, responsive experience – let the magic unfold!</section>
+                Click 'Start', grant microphone access, and say 'Hello' or follow provided instructions to navigate our voice-controlled website. Ensure precise commands, as incorrect inputs may lead to unexpected results. Speak confidently for a seamless, responsive experience – let the magic unfold!</section>
               <table>
                 <thead>
                   <tr>
@@ -882,6 +965,10 @@ const Speech = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td data-label="Header 1">'Start auto mode', 'auto mode', 'automode', 'press start', `enable auto run`,'activate auto mode'( <span className="text-danger text-sm fw-bold">new</span> )</td>
+                    <td data-label="Header 2">Enable auto mode for 14second</td>
+                  </tr>
                   <tr>
                     <td data-label="Header 1">'hello','hello bot', 'chat bot','hay', 'watcher','watcher','hello watcher','hay watcher'</td>
                     <td data-label="Header 2">as per time reply...</td>
@@ -1012,18 +1099,23 @@ const Speech = () => {
                   </p>
                 </div>
               </table>
-              {/* <tr>
-                <td data-label="Header 1"></td>
-                <td data-label="Header 2"></td>
-              </tr> */}
             </div>
           </div>
         </div>
       </div>
+      {/* update 2.0 */}
+      {/* <div className="modal fade" id="auto-modal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-body">
+              <section className="sec">
+                <button className="btn btn-outline-success" onClick={AutoAction}>Yes</button>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div> */}
     </div >
-
-
-
   );
 };
 
