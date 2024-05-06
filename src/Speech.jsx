@@ -461,6 +461,9 @@ const Speech = () => {
   }
 
   // fireing work cards
+  function FireSonicSupport() {
+    window.open("https://sonicsupport.netlify.app", "_blank");
+  }
   function FireHYDPG() {
     window.open("https://hydpg.netlify.app/", "_blank");
   }
@@ -645,8 +648,18 @@ const Speech = () => {
         </section>
         <section className={`work`}>
           <h2 className={`text-center heading`} id='work' data-aos="fade-up">Works</h2>
-          {/* Hydpg */}
+          {/*  */}
           <div className="sec-work">
+            {/* Sonic Support */}
+            <div className={`card`} onClick={FireSonicSupport}>
+              <div className={`card-body`} data-aos="fade-up">
+                <h5 className="card-title text-center">SonicSupport</h5>
+                <p className="card-text">
+                  React with a speech recognition library to enable voice interaction on my website. Users can search for notes using their voice, enhancing the user experience.
+                </p>
+              </div>
+            </div>
+            {/* Hydpg */}
             <div className={`card`} onClick={FireHYDPG}>
               <div className={`card-body`} data-aos="fade-up">
                 <h5 className="card-title text-center">HYDPG</h5>
@@ -662,12 +675,12 @@ const Speech = () => {
                   Launched FilmFlix, a dynamic website with Bollywood, Hollywood, and Tollywood movies. User-friendly design ensures seamless browsing, accessibility, and updated movie selections.           </p>     </div>
             </div>
             {/* 21Temp*/}
-            <div className="card" onClick={Fire21Template}>
+            {/* <div className="card" onClick={Fire21Template}>
               <div className="card-body" data-aos="fade-up">
                 <h5 className="card-title">22 Templates</h5>
                 <p className="card-text">
                   Designed 22 diverse and functional templates showcasing proficiency in various styles. Meticulously crafted for adaptability and user-friendliness across different platforms and project requirements.    </p>           </div>
-            </div>
+            </div> */}
             {/* FTF*/}
             <div className="card" onClick={FireFTF}>
               <div className="card-body" data-aos="fade-up">
