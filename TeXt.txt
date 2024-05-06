@@ -1,0 +1,116 @@
+import { useEffect } from "react";
+import { useState } from "react";
+
+const Test = () => {
+  const [val,setVal]=useState([])
+  const [value,setValue]=useState('')
+  useEffect(()=>{
+    const storedData=localStorage.getItem('localData')
+    if(storedData){
+      const parsedData=JSON.parse(storedData)
+      setVal(parsedData)
+    }
+  },[])
+  const Handle = () => {
+    const updatedVal = [...val, value];
+    setVal(updatedVal);
+    localStorage.setItem('localData', JSON.stringify(updatedVal));
+    setValue(''); // Clear the input field after submitting
+  }
+  
+  const Remove=(ind)=>{
+    setVal(val.filter((ele,i)=>i !==ind))
+  }
+  const Clear=()=>{
+    localStorage.clear()
+  }
+ return(
+  <>
+    <input type="text" value={value} onChange={e=>setValue(e.target.value)}/>
+    <button onClick={Handle}>Submit</button>
+    <ul>
+      {
+        val.map((ele,ind)=>(
+          <div>
+            <li key={ind}>{ele} <button onClick={()=>Remove(ind)}>Remove</button></li>
+
+          </div>
+        ))
+      }
+    </ul>
+  </>
+ )
+};
+export default Test;
+
+
+
+
+
+
+
+import React, { useState, useEffect } from "react";
+
+const Test = () => {
+  const [val, setVal] = useState([]);
+  const [value, setValue] = useState("");
+
+  // useEffect to retrieve data from local storage on component mount
+  useEffect(() => {
+    const storedData = localStorage.getItem("localData");
+
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setVal(parsedData);
+      } catch (error) {
+        // Handle the error (e.g., log it, set default value, etc.)
+        console.error("Error parsing JSON:", error);
+      }
+    }
+  }, []);
+
+  const Handle = () => {
+    const updatedVal = [...val, value];
+    setVal(updatedVal);
+    localStorage.setItem("localData", JSON.stringify(updatedVal));
+    setValue(""); 
+  };
+
+  const Remove = (ind) => {
+    const updatedVal = val.filter((ele, i) => i !== ind);
+    setVal(updatedVal);
+    localStorage.setItem("localData", JSON.stringify(updatedVal));
+  };
+
+  const Clear = () => {
+    setVal([]);
+    localStorage.removeItem("localData");
+  };
+
+  return (
+    <>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <button onClick={Handle}>Submit</button>
+      <ul>
+        {val.map((ele, ind) => (
+          <div key={ind}>
+            <li>
+              {ele}{" "}
+              <button onClick={() => Remove(ind)}>Remove</button>
+            </li>
+          </div>
+        ))}
+      </ul>
+      <button className="btn btn-outline-danger" onClick={Clear}>
+        Clear
+      </button>
+    </>
+  );
+};
+
+export default Test;
