@@ -461,7 +461,9 @@ const Speech = () => {
   }
 
   // fireing work cards
-  
+  function FireSonicSupport() {
+    window.open("https://sonicsupport.netlify.app", "_blank");
+  }
   function FireHYDPG() {
     window.open("https://hydpg.netlify.app/", "_blank");
   }
@@ -649,7 +651,14 @@ const Speech = () => {
           {/*  */}
           <div className="sec-work">
             {/* Sonic Support */}
-            
+            <div className={`card`} onClick={FireSonicSupport}>
+              <div className={`card-body`} data-aos="fade-up">
+                <h5 className="card-title text-center">SonicSupport</h5>
+                <p className="card-text">
+                  React with a speech recognition library to enable voice interaction on my website. Users can search for notes using their voice, enhancing the user experience.
+                </p>
+              </div>
+            </div>
             {/* Hydpg */}
             <div className={`card`} onClick={FireHYDPG}>
               <div className={`card-body`} data-aos="fade-up">
